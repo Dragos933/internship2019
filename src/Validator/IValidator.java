@@ -1,6 +1,6 @@
 package Validator;
 
-import sun.security.validator.ValidatorException;
+import Exceptions.ValidatorException;
 
 public interface IValidator<E>
 {

@@ -1,20 +1,21 @@
 package Service;
 
-import Model.Account.Account;
-import Repository.InMemoryRepository;
 import Exceptions.ValidatorException;
+import Model.ATM.ATM;
+import Repository.InMemoryRepository;
 
 import java.util.Map;
 
-public class AccountService
+public class ATMService
 {
     private InMemoryRepository repo;
 
-    public AccountService(InMemoryRepository repo) {
+    public ATMService(InMemoryRepository repo)
+    {
         this.repo = repo;
     }
 
-    public void add(Account el) throws ValidatorException {
+    public void add(ATM el) throws ValidatorException {
         this.repo.save(el);
     }
 
@@ -23,14 +24,14 @@ public class AccountService
         this.repo.delete(id);
     }
 
-    public void update(Account el) throws ValidatorException
+    public void update(ATM el) throws ValidatorException
     {
         this.repo.update(el);
     }
 
-    public Account find(Integer id)
+    public ATM find(Integer id)
     {
-        return (Account) this.repo.findOne(id);
+        return (ATM) this.repo.findOne(id);
     }
 
     public long size()
@@ -38,7 +39,7 @@ public class AccountService
         return this.repo.size();
     }
 
-    public Map<Integer, Account> getAccounts()
+    public Map<Integer, ATM> getATMs()
     {
         return this.repo.getElements();
     }

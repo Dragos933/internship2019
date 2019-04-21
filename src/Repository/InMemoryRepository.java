@@ -1,57 +1,75 @@
 package Repository;
 
+import Model.Entity;
 import Validator.IValidator;
-import sun.security.validator.ValidatorException;
+import Exceptions.ValidatorException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class InMemoryRepository<E> implements IAbstractRepository<E>
+public class InMemoryRepository<ID, E extends Entity<ID>> implements IAbstractRepository<ID, E>
 {
-    private List<E> repo;
+    private Map<ID, E> repo;
     private IValidator<E> validator;
 
     public InMemoryRepository(IValidator<E> v)
     {
-        this.repo = new ArrayList<E>();
+        this.repo = new HashMap<ID, E>();
         this.validator = v;
     }
 
-    public List<E> getElements()
+    @Override
+    public E findOne(ID id)
+    {
+        if (this.repo.get(id) == null)
+            return null;
+        else
+            if (id == null)
+                throw new IllegalArgumentException();
+            else
+                return this.repo.get(id);
+    }
+
+    @Override
+    public Map<ID, E> getElements()
     {
         return this.repo;
     }
 
-    public void save(E el) throws ValidatorException
+    @Override
+    public E save(E el) throws ValidatorException
     {
         String msg = this.validator.validate(el);
         if (msg.equals(""))
-            this.repo.add(el);
+        {
+            this.repo.putIfAbsent(el.getID(), el);
+            return findOne(el.getID());
+        }
         else
             throw new ValidatorException(msg);
     }
 
-    public void delete(E el) throws ValidatorException
+    @Override
+    public E delete(ID id)
     {
-        String msg = this.validator.validate(el);
+        return this.repo.remove(id);
+    }
+
+
+    @Override
+    public E update(E entity) throws ValidatorException
+    {
+        String msg = this.validator.validate(entity);
         if (msg.equals(""))
-            this.repo.remove(el);
+        {
+            return this.repo.replace(entity.getID(), entity);
+        }
         else
             throw new ValidatorException(msg);
     }
-
 
     public long size()
     {
         return this.repo.size();
-    }
-
-    @Override
-    public String toString()
-    {
-        String msg = "";
-        for (E el : this.repo)
-            msg += el.toString();
-        return msg;
     }
 }

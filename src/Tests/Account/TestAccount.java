@@ -1,11 +1,11 @@
-package Tests;
+package Tests.Account;
 
 import Model.Account.Account;
 import Model.Account.AccountType;
 import Model.Account.AmountInterval;
 import Validator.AccountValidator;
 import org.junit.Test;
-import sun.security.validator.ValidatorException;
+import Exceptions.ValidatorException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -20,10 +20,11 @@ public class TestAccount
         Map<Double, AmountInterval> map = new HashMap<>();
         map.put(0.2, new AmountInterval(0, 500, 1));
         map.put(0.5, new AmountInterval(500, 5000, 2));
-        Account acc1 = new Account(AccountType.SILVER, map, LocalDateTime.of(2020, 10, 10, 10, 10), 5000);
+        Account acc1 = new Account(1, AccountType.SILVER, map, LocalDateTime.of(2020, 10, 10, 10, 10), 5000);
 
         AccountValidator validator = new AccountValidator();
 
+        assertEquals((int)acc1.getID(), 1);
         String msg = validator.validate(acc1);
         assertEquals(msg, "");
 
@@ -43,9 +44,10 @@ public class TestAccount
         acc1.setAmount(50000);
         assertEquals(acc1.getAmount(), 50000);
 
-        Account acc2 = new Account(AccountType.GOLD, map, LocalDateTime.of(2020, 10, 10, 10, 10), -5);
+        Account acc2 = new Account(2, AccountType.GOLD, map, LocalDateTime.of(2020, 10, 10, 10, 10), -5);
         msg = validator.validate(acc2);
         assertEquals(msg, "Invalid amount!");
 
+        assertEquals((int)acc2.getID(), 2);
     }
 }

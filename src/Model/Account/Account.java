@@ -1,22 +1,36 @@
 package Model.Account;
 
+import Model.Entity;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class Account
+public class Account implements Entity<Integer>
 {
+    private Integer id;
     private AccountType type;
     private Map<Double, AmountInterval> rateToAmount;
     private LocalDateTime exp_date;
     private int amount;
 
-    public Account(AccountType type, Map<Double, AmountInterval> rateToAmount, LocalDateTime exp_date, int amount) {
+    public Account(Integer id, AccountType type, Map<Double, AmountInterval> rateToAmount, LocalDateTime exp_date, int amount) {
+        this.id = id;
         this.type = type;
         this.rateToAmount = rateToAmount;
         this.exp_date = exp_date;
         this.amount = amount;
+    }
+
+    @Override
+    public Integer getID() {
+        return this.id;
+    }
+
+    @Override
+    public void setID(Integer id) {
+        this.id = id;
     }
 
     public AccountType getType() {
@@ -55,7 +69,7 @@ public class Account
     public String toString()
     {
         String msg = "";
-        msg += "\n\tAccount:\n" + "Account type: " + this.type + "\nRate + Interval: ";
+        msg += "\n\tAccount:\n" + "Account id: " + this.id + "\nAccount type: " + this.type + "\nRate + Interval: ";
         List<Double> keys = new ArrayList<Double>(this.getRateToAmount().keySet());
         List<AmountInterval> values = new ArrayList<AmountInterval>(this.getRateToAmount().values());
         for (int i = 0; i < this.getRateToAmount().size(); i++)

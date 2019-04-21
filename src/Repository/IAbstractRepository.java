@@ -1,14 +1,15 @@
 package Repository;
 
-import sun.security.validator.ValidatorException;
+import Exceptions.ValidatorException;
 
-import java.util.List;
+import java.util.Map;
 
-public interface IAbstractRepository<E>
+public interface IAbstractRepository<ID, E>
 {
-    List<E> getElements();
-    void save(E el) throws ValidatorException;
-    void delete(E el) throws ValidatorException;
+    Map<ID, E> getElements();
+    E findOne(ID id);
+    E save(E el) throws ValidatorException;
+    E delete(ID id);
+    E update(E entity) throws ValidatorException;
     long size();
-    String toString();
 }

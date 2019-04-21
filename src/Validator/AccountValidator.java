@@ -2,7 +2,7 @@ package Validator;
 
 import Model.Account.Account;
 import Model.Account.AmountInterval;
-import sun.security.validator.ValidatorException;
+import Exceptions.ValidatorException;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -13,6 +13,8 @@ public class AccountValidator implements IValidator<Account>
     public String validate(Account entity) throws ValidatorException
     {
         String errors = "";
+        if (entity.getID() <= 0)
+            errors += "Invalid id!";
         if (entity.getType().name() != "SILVER" && entity.getType().name() != "GOLD" && entity.getType().name() != "PLATINUM")
             errors += "Invalid type!";
         Set<Double> interestRate = entity.getRateToAmount().keySet();

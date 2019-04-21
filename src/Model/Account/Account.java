@@ -9,6 +9,12 @@ import java.util.Map;
 
 public class Account implements Entity<Integer>
 {
+    /*
+    Account class
+        - getters()
+        - setters()
+        - toString()
+     */
     private Integer id;
     private AccountType type;
     private Map<Double, AmountInterval> rateToAmount;

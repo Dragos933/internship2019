@@ -2,6 +2,12 @@ package Model.Account;
 
 public class AmountInterval
 {
+    /*
+    AmountInterval class:
+        - getters
+        - setters
+        - toString
+     */
     private int lowerBound;
     private int upperBound;
     private int nr;

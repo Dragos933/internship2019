@@ -9,6 +9,10 @@ import java.util.Map;
 
 public class InMemoryRepository<ID,E extends Entity<ID>> implements IAbstractRepository<ID, E>
 {
+    /*
+    Abstract CRUD in memory repository
+     */
+
     private Map<ID, E> repo;
     private IValidator<E> validator;
 

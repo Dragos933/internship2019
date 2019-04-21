@@ -1,16 +1,26 @@
 package Service;
 
-import Model.Account.Account;
-import Repository.InMemoryRepository;
 import Exceptions.ValidatorException;
+import Model.Account.Account;
+import Repository.AccountRepo;
 
 import java.util.Map;
 
 public class AccountService
 {
-    private InMemoryRepository repo;
+    private AccountRepo repo;
 
-    public AccountService(InMemoryRepository repo) {
+    public AccountService(AccountRepo repo) {
+        this.repo = repo;
+    }
+
+    public AccountRepo getRepo()
+    {
+        return this.repo;
+    }
+
+    public void setRepo(AccountRepo repo)
+    {
         this.repo = repo;
     }
 
@@ -30,7 +40,7 @@ public class AccountService
 
     public Account find(Integer id)
     {
-        return (Account) this.repo.findOne(id);
+        return this.repo.findOne(id);
     }
 
     public long size()

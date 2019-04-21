@@ -7,14 +7,14 @@ import Exceptions.ValidatorException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryRepository<ID, E extends Entity<ID>> implements IAbstractRepository<ID, E>
+public class InMemoryRepository<ID,E extends Entity<ID>> implements IAbstractRepository<ID, E>
 {
     private Map<ID, E> repo;
     private IValidator<E> validator;
 
     public InMemoryRepository(IValidator<E> v)
     {
-        this.repo = new HashMap<ID, E>();
+        this.repo = new HashMap<>();
         this.validator = v;
     }
 

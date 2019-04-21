@@ -53,7 +53,7 @@ public class TestAccountService
         Map<Double, AmountInterval> map4 = new HashMap<>();
         map4.put(0.7, new AmountInterval(0, 500, 1));
         map4.put(0.9, new AmountInterval(500, 5000, 2));
-        Account acc4 = new Account(3, AccountType.PLATINUM, map4, LocalDateTime.of(2023, 10, 10, 10, 10), 5000);
+        Account acc4 = new Account(3, AccountType.GOLD, map4, LocalDateTime.of(2023, 10, 10, 10, 10), 5000);
 
         srv.update(acc4);
         assertEquals(srv.size(), 3);
@@ -64,5 +64,6 @@ public class TestAccountService
         accs.put(acc4.getID(), acc4);
 
         assertEquals(accs, srv.getAccounts());
+        //System.out.println(srv.getAccounts().toString());
     }
 }
